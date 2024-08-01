@@ -22,7 +22,7 @@ const Registration = () => {
         <div className="container">
           <div className="wrapper">
             <div className="welcome">
-              <Header headerType="h1" headerText="Добро пожаловать в квиз"/>
+                <Header headerType="h1" headerText="Добро пожаловать в квиз"/>
               <form className="welcome__form">
                 <AppInput 
                   inputText = "Ваше имя"
