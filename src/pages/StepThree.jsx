@@ -4,7 +4,10 @@ import { useNavigate } from "react-router-dom";
 import { ProgressBar } from "../components/ProgressBar";
 
 const StepThree = () => {
-  navigate("/step-four")
+  const navigate = useNavigate()
+  const handleClick = () => {
+    navigate("/step-four")
+  }
   return (
     <div className="container">
       <div className="wrapper">
@@ -42,7 +45,7 @@ const StepThree = () => {
                 </label>
               </li>
             </ul>
-            <AppButton isDisabled={buttonError} buttonClick={handleClick}/>
+            <AppButton buttonClick={handleClick}/>
           </div>
         </div>
       </div>

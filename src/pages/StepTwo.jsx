@@ -5,7 +5,10 @@ import { ProgressBar } from "../components/ProgressBar";
 import { Header } from "../components/Header";
 
 const StepTwo = () => {
-  navigate("/step-three")
+  const navigate = useNavigate()
+  const handleClick = () => {
+    navigate("/step-three")
+  }
   return (
     <div className="container">
       <div className="wrapper">
@@ -31,7 +34,7 @@ const StepTwo = () => {
                 <label htmlFor="variant-4">Ваш ответ</label>
               </li>
             </ul>
-            <AppButton isDisabled={buttonError} buttonClick={handleClick}/>
+            <AppButton buttonClick={handleClick}/>
           </div>
         </div>
       </div>
