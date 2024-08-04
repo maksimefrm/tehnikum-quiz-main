@@ -1,26 +1,14 @@
 import React from "react";
 import { AppButton } from "../components/AppButton";
 import { Link } from "react-router-dom";
+import { ProgressBar } from "../components/ProgressBar";
 
 const StepFour = () => {
   return (
     <div className="container">
       <div className="wrapper">
         <div className="emoji-quiz">
-          <div className="indicator">
-            <div className="indicator__text">
-              <span className="indicator__description">
-                Скидка за прохождение опроса:
-              </span>
-              <span className="indicator__value">15%</span>
-            </div>
-            <div className="indicator__progressbar">
-              <div className="indicator__unit indicator__unit-1 _active"></div>
-              <div className="indicator__unit indicator__unit-2 _active"></div>
-              <div className="indicator__unit indicator__unit-3 _active"></div>
-              <div className="indicator__unit indicator__unit-4"></div>
-            </div>
-          </div>
+        <ProgressBar currentStep={3}/>
           <div className="question">
             <h2>4. Занимательный вопрос</h2>
             <ul className="level-variants">

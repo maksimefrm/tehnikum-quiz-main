@@ -6,9 +6,11 @@ export const AppInput =({
   inputPlaceHolder,
   inputType,
   inputValue,
-  inputChange})=> {
+  inputChange,
+  hasError
+})=> {
     return(
-        <label className="input-wrapper" htmlFor="username">
+        <label className={`input-wrapper ${hasError && "_error"}`} htmlFor="username">
               {inputText}
               <input
                 required
@@ -20,9 +22,7 @@ export const AppInput =({
                 value = {inputValue}
                 onChange = {(event) => inputChange(event.target.value)}
               />
-              <span id="error-message">
-                {errorText}
-              </span>
+              {hasError && <span id="error-message">{errorText}</span>}
             </label>
     )
 }

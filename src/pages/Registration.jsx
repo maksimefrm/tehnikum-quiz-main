@@ -2,9 +2,10 @@ import React, { useState, useEffect } from "react"
 import { Header } from "../components/Header.jsx"
 import { AppInput } from "../components/AppInput";
 import { AppButton } from "../components/AppButton.jsx";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Registration = () => {
+
     const [name, setName] = useState("");
     const [surname, setSurname] = useState("");
     const [number, setNumber] = useState("");
@@ -17,6 +18,41 @@ const Registration = () => {
         setbuttonError(false)
       }
     },[name,surname,number,email,country])
+  
+    const [nameError,setNameError] = useState(false)
+    const [surnameError,setSurnameError] = useState(false)
+    const [numberError,setNumberError] = useState(false)
+    const [countryError,setCountryError] = useState(false)
+
+  
+    const regex = /^[A-Za-zА-Яа-яЁё]+$/
+    const regexNum = /^\+?(\d{1,4}|\(\d{1,4}\))[-.\s]?(\d{1,4}[-.\s]?){1,3}\d{1,4}$/
+  
+    const navigate = useNavigate()
+  
+    const handleClick = () => {
+      if(!regex.test(name,surname,country)) {
+        setNameError(true)
+        setSurnameError(true)
+        setCountryError(true)
+      } else if(!regexNum.test(number)) {
+        setNumberError(true)
+      } else {
+        setNameError(false)
+        setNumberError(false)
+        setSurnameError(false)
+        setCountryError(false)
+        navigate("/welcome")
+      }
+    }
+  
+    useEffect(() => {
+      if(name.length >0 && surname.length >0 && number.length >0 && email.length >0 && country.length >0) {
+        setbuttonError(false)
+      } else {
+        setbuttonError(true)
+      }
+    }, [name,surname,number,email,country])
 
     return (
         <div className="container">
@@ -30,21 +66,24 @@ const Registration = () => {
                   inputPlaceHolder = "Введите ваше имя"
                   inputType = "text"
                   inputValue= {name}
-                  inputChange = {setName}/>
+                  inputChange = {setName}
+                  hasError={nameError}/>
                 <AppInput 
                   inputText = "Вашу фамилию"
                   errorText = "Введите вашу фамилию в правильном формате"
                   inputPlaceHolder = "Введите вашу фамилию"
                   inputType = "text"
                   inputValue= {surname}
-                  inputChange = {setSurname}/>
+                  inputChange = {setSurname}
+                  hasError={surnameError}/>
                 <AppInput 
                   inputText = "Ваш номер"
                   errorText = "Введите ваш номер в правильном формате"
                   inputPlaceHolder = "Введите ваш номер"
                   inputType = "tel"
                   inputValue= {number}
-                  inputChange = {setNumber}/>
+                  inputChange = {setNumber}
+                  hasError={numberError}/>
                 <AppInput 
                   inputText = "Ваш email"
                   errorText = "Введите ваш email в правильном формате"
@@ -59,9 +98,7 @@ const Registration = () => {
                   inputType = "country"
                   inputValue= {country}
                   inputChange = {setCountry}/>
-                <Link to = "/welcome">
-                    <AppButton isDisabled={buttonError}/>
-                </Link>
+                <AppButton isDisabled={buttonError} buttonClick={handleClick}/>
               </form>
             </div>
           </div>
