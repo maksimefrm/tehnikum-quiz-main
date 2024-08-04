@@ -1,9 +1,10 @@
 import React from "react";
 import { AppButton } from "../components/AppButton";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { ProgressBar } from "../components/ProgressBar";
 
 const StepThree = () => {
+  navigate("/step-four")
   return (
     <div className="container">
       <div className="wrapper">
@@ -41,9 +42,7 @@ const StepThree = () => {
                 </label>
               </li>
             </ul>
-            <Link to = "/step-four">
-              <AppButton isDisabled={false}/>
-            </Link>
+            <AppButton isDisabled={buttonError} buttonClick={handleClick}/>
           </div>
         </div>
       </div>
