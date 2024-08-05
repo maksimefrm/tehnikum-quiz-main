@@ -95,9 +95,10 @@ const Registration = () => {
                   inputText = "Ваш город/страна"
                   errorText = "Введите ваш город/страну в правильном формате"
                   inputPlaceHolder = "Введите ваш город/страну"
-                  inputType = "country"
+                  inputType = "text"
                   inputValue= {country}
-                  inputChange = {setCountry}/>
+                  inputChange = {setCountry}
+                  hasError={countryError}/>
                 <AppButton isDisabled={buttonError} buttonClick={handleClick}/>
               </form>
             </div>
