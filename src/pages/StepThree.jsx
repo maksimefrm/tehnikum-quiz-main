@@ -1,51 +1,74 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { AppButton } from "../components/AppButton";
 import { useNavigate } from "react-router-dom";
 import { ProgressBar } from "../components/ProgressBar";
+import { Header } from "../components/Header";
+import { AnswerImg } from "../components/AnswerImg";
 
 const StepThree = () => {
   const navigate = useNavigate()
   const handleClick = () => {
     navigate("/step-four")
   }
+  const variants = [
+    {
+      variantImg:"./img/laugh.png",
+      variantId:"variant-1",
+      variantText:"Будет весело",
+      variantAlt:"laugh"
+    },
+    {
+      variantImg:"./img/hearts.png",
+      variantId:"variant-2",
+      variantText:"Мне понравиться",
+      variantAlt:"hearts"
+    },
+    {
+      variantImg:"./img/smirk.png",
+      variantId:"variant-3",
+      variantText:"Будет круто",
+      variantAlt:"smirk"
+    },
+    {
+      variantImg:"./img/fright.png",
+      variantId:"variant-4",
+      variantText:"В предкушении",
+      variantAlt:"fright"
+    }
+  ]
+  const [variantImg, setVariantImg] = useState(null)
+  const [buttonError, setbuttonError] = useState(true)
+
+  useEffect(()=> {
+    if(variantImg === null) {
+      localStorage.setItem("Text", "")
+      setbuttonError(true)
+    } else {
+      localStorage.setItem("Text", JSON.stringify(variantImg))
+      setbuttonError(false)
+    }
+  },[variantImg])
+
   return (
     <div className="container">
       <div className="wrapper">
         <div className="emoji-quiz">
-        <ProgressBar currentStep={2}/>
+        <ProgressBar currentStep={3}/>
           <div className="question">
-            <h2>3. Занимательный вопрос</h2>
+            <Header headerText="Ваши ожидания от курса"/>
             <ul className="emoji-variants">
-              <li className="variant-wrapper">
-                <input required type="radio" name="variant" id="variant-1" />
-                <label htmlFor="variant-1">
-                  <img src="./img/laugh.png" alt="laugh" />
-                  <p>Ваш ответ 1</p>
-                </label>
-              </li>
-              <li className="variant-wrapper">
-                <input required type="radio" name="variant" id="variant-2" />
-                <label htmlFor="variant-2">
-                  <img src="./img/hearts.png" alt="hearts" />
-                  <p>Ваш ответ 2</p>
-                </label>
-              </li>
-              <li className="variant-wrapper">
-                <input required type="radio" name="variant" id="variant-3" />
-                <label htmlFor="variant-3">
-                  <img src="./img/smirk.png" alt="smirk" />
-                  <p>Ваш ответ 3</p>
-                </label>
-              </li>
-              <li className="variant-wrapper">
-                <input required type="radio" name="variant" id="variant-4" />
-                <label htmlFor="variant-4">
-                  <img src="./img/fright.png" alt="fright" />
-                  <p>Ваш ответ 4</p>
-                </label>
-              </li>
+              {variants.map((elem, i) => (
+                <AnswerImg
+                key={elem.variantId}
+                answerAlt={elem.variantAlt}
+                answerId={elem.variantId}
+                answerImg={elem.variantImg}
+                answerText={elem.variantText}
+                answerChange={()=>setVariantImg(elem.variantText)}
+                />
+              ))}
             </ul>
-            <AppButton buttonClick={handleClick}/>
+            <AppButton isDisabled={buttonError} buttonClick={handleClick}/>
           </div>
         </div>
       </div>

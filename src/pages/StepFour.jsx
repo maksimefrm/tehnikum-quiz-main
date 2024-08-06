@@ -1,43 +1,69 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { AppButton } from "../components/AppButton";
 import { useNavigate } from "react-router-dom";
 import { ProgressBar } from "../components/ProgressBar";
+import { AnswerScore } from "../components/AnswerScore";
+import { Header } from "../components/Header";
 
 const StepFour = () => {
   const navigate = useNavigate()
   const handleClick = () => {
     navigate("/thanks")
   }
+
+  const variants = [
+    {
+      variantId:"variant-1",
+      variantText:"1",
+    },
+    {
+      variantId:"variant-2",
+      variantText:"2",
+    },
+    {
+      variantId:"variant-3",
+      variantText:"3",
+    },
+    {
+      variantId:"variant-4",
+      variantText:"4",
+    },
+    {
+      variantId:"variant-5",
+      variantText:"5",
+    },
+  ]
+
+  const [variantScore, setVariantScore] = useState(null)
+  const [buttonError, setbuttonError] = useState(true)
+
+  useEffect(()=> {
+    if(variantScore === null) {
+      localStorage.setItem("Score", "")
+      setbuttonError(true)
+    } else {
+      localStorage.setItem("Score", JSON.stringify(variantScore))
+      setbuttonError(false)
+    }
+  },[variantScore])
+
   return (
     <div className="container">
       <div className="wrapper">
         <div className="emoji-quiz">
-        <ProgressBar currentStep={3}/>
+        <ProgressBar currentStep={4}/>
           <div className="question">
-            <h2>4. Занимательный вопрос</h2>
+            <Header headerText="С какой вероятностью вы посетите курс"/>
             <ul className="level-variants">
-              <li className="variant-wrapper">
-                <input required type="radio" name="variant" id="variant-1" />
-                <label htmlFor="variant-1">1</label>
-              </li>
-              <li className="variant-wrapper">
-                <input required type="radio" name="variant" id="variant-2" />
-                <label htmlFor="variant-2">2</label>
-              </li>
-              <li className="variant-wrapper">
-                <input required type="radio" name="variant" id="variant-3" />
-                <label htmlFor="variant-3">3</label>
-              </li>
-              <li className="variant-wrapper">
-                <input required type="radio" name="variant" id="variant-4" />
-                <label htmlFor="variant-4">4</label>
-              </li>
-              <li className="variant-wrapper">
-                <input required type="radio" name="variant" id="variant-5" />
-                <label htmlFor="variant-5">5</label>
-              </li>
+            {variants.map((elem, i) => (
+                <AnswerScore
+                  key={elem.variantId}
+                  answerId={elem.variantId}
+                  answerScore={elem.variantText}
+                  answerChange={()=>setVariantScore(elem.variantText)}/>
+              ))}
             </ul>
-            <AppButton buttonClick={handleClick}/>
+            <AppButton isDisabled={buttonError} buttonClick={handleClick}/>
           </div>
         </div>
       </div>

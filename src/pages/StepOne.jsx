@@ -37,12 +37,11 @@ const StepOne = () => {
     <div className="container">
       <div className="wrapper">
         <div className="single-input-quiz">
-          <ProgressBar currentStep={0}/>
+          <ProgressBar currentStep={1}/>
           <div className="question">
             <h2>1. Занимательный вопрос</h2>
             <label className="input-wrapper">
             <AppInput 
-              required
               errorText = "Введите ваш ответ в правильном формате"
               inputPlaceHolder = "Ваш ответ"
               inputType = "text"
